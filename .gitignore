@@ -1,0 +1,5 @@
+examples/dark-sample/background.mp4
+examples/dark-sample/beat.mp3
+__pycache__/
+*.pyc
+.venv/

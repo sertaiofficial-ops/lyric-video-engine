@@ -1,0 +1,18 @@
+{
+    "style": "dark",
+    "width": 720,
+    "height": 720,
+    "fps": 30,
+    "text_y": 330,
+    "band_top": 290,
+    "band_height": 160,
+    "lyrics": [
+        {"start": 0.25, "text": "the city sleeps", "emphasis": false, "shake": 0},
+        {"start": 1.5, "text": "but I am still awake", "emphasis": false, "shake": 1},
+        {"start": 3.0, "text": "NO WAY BACK", "emphasis": true, "shake": 4},
+        {"start": 4.5, "text": "lights go out", "emphasis": false, "shake": 0},
+        {"start": 6.0, "text": "HEAR THE SIGNAL", "emphasis": true, "shake": 5},
+        {"start": 7.5, "text": "and let it burn", "emphasis": false, "shake": 1},
+        {"start": 8.75, "text": " ", "emphasis": false, "shake": 0}
+    ]
+}
