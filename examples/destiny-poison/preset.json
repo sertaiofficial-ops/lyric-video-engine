@@ -1,0 +1,41 @@
+{
+  "_about": "Destiny Poison look and layout. 1080x1920. Lyrics sit in the empty zone under the cover title (text y 1490-1690, soft band 1480-1700), clear of the bottom 12% platform UI. Built by SERTAI LAB.",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "style": "dark",
+  "font_normal": "montserrat",
+  "font_size_normal": 64,
+  "font_emphasis": "bebas-neue",
+  "font_size_emphasis": 150,
+  "text_center_y": 1590,
+  "band_top": 1480,
+  "band_height": 220,
+  "backdrop_opacity": 0.62,
+  "safe_width": 0.88,
+  "min_font_scale": 0.8,
+  "gradient_normal": [
+    "#2EE6FF",
+    "#8A5CFF"
+  ],
+  "gradient_emphasis": [
+    "#FF2E97",
+    "#D61EFF"
+  ],
+  "gradient_speed": 0.12,
+  "color_blend": 0.45,
+  "glow_color": "text",
+  "glow_strength": 0.7,
+  "glow_radius": 14,
+  "glow_normal": 0.18,
+  "shadow_opacity": 0.6,
+  "animation_in": "fade_rise",
+  "entry_duration": 0.45,
+  "rise": 0.3,
+  "animation_out": "fade",
+  "exit_duration": 0.35,
+  "punch_duration": 0.3,
+  "shake_intensity": 6,
+  "sweep_dim": 0.6,
+  "tracking": 0.18
+}

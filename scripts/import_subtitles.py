@@ -12,6 +12,8 @@ Hook rules (applied automatically, edit the result by hand afterwards):
   - Everything else: "emphasis": false, "shake": 0 (1 if it is short, <= 3 words).
   - If a cue has an end time and the next cue starts more than 0.4 s later,
     a " " line is inserted so the screen clears during the gap.
+  - Enhanced LRC word tags (<mm:ss.xx>word) become "words" timings, which the
+    renderer uses for the karaoke-style word sweep.
 
 Built by SERTAI LAB. MIT License.
 """
@@ -43,14 +45,26 @@ def srt_cues(text):
     return cues
 
 
+WORD_TAG = re.compile(r"<(\d+):(\d+(?:\.\d+)?)>\s*([^<]*)")
+
+
 def lrc_cues(text):
     cues = []
     for line in text.splitlines():
         stamps = LRC_TIME.findall(line)
-        body = LRC_TIME.sub("", line)
-        body = re.sub(r"<\d+:\d+(?:\.\d+)?>", "", body).strip()  # enhanced LRC word tags
+        raw = LRC_TIME.sub("", line)
+        words = []
+        for mm, ss, chunk in WORD_TAG.findall(raw):  # enhanced LRC word tags
+            for w in chunk.split():
+                words.append({"start": round(int(mm) * 60 + float(ss), 3)})
+                break
+        body = re.sub(r"<\d+:\d+(?:\.\d+)?>", "", raw)
+        body = re.sub(r"\s+", " ", body).strip()
         for mm, ss in stamps:
-            cues.append({"start": int(mm) * 60 + float(ss), "end": None, "text": body})
+            cue = {"start": int(mm) * 60 + float(ss), "end": None, "text": body}
+            if words and len(words) == len(body.split()):
+                cue["words"] = words
+            cues.append(cue)
     cues.sort(key=lambda c: c["start"])
     return [c for c in cues if c["text"] or cues]
 
@@ -71,8 +85,11 @@ def mark(cues):
         shake = 4 if emphasis else (1 if t and len(t.split()) <= 3 else 0)
         if t.endswith("!"):
             shake = 5
-        out.append({"start": round(c["start"], 3), "text": t or " ",
-                    "emphasis": emphasis, "shake": shake})
+        entry = {"start": round(c["start"], 3), "text": t or " ",
+                 "emphasis": emphasis, "shake": shake}
+        if c.get("words"):
+            entry["words"] = c["words"]
+        out.append(entry)
         nxt = cues[i + 1]["start"] if i + 1 < len(cues) else None
         if c.get("end") and (nxt is None or nxt - c["end"] > 0.4):
             out.append({"start": round(c["end"], 3), "text": " ", "emphasis": False, "shake": 0})
@@ -84,6 +101,7 @@ def main():
     ap.add_argument("input")
     ap.add_argument("output", nargs="?", default="lyrics.json")
     ap.add_argument("--style", default="dark", choices=["dark", "neon", "minimal"])
+    ap.add_argument("--look", help="Optional look preset (fonts, colours, animations) to merge in")
     ap.add_argument("--preset", help="JSON file with layout keys (width, height, text_y, ...)")
     a = ap.parse_args()
 
@@ -93,8 +111,10 @@ def main():
         sys.exit("No timed lines found. Is this a valid .srt or .lrc file?")
 
     config = {}
-    if a.preset:
-        config.update(json.load(open(a.preset, encoding="utf-8")))
+    for p in (a.preset, a.look):
+        if p:
+            config.update({k: v for k, v in json.load(open(p, encoding="utf-8")).items()
+                           if not k.startswith("_")})
     config["style"] = a.style
     config["lyrics"] = mark(cues)
     with open(a.output, "w", encoding="utf-8") as f:

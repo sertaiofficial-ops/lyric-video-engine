@@ -1,0 +1,105 @@
+{
+  "_about": "Destiny Poison promo (19 s). Starts snapped to vocal onsets, hooks on beats; hook word times from the vocal. Render with preset.json.",
+  "lyrics": [
+    {
+      "start": 0.592,
+      "text": "Falling into the abyss,",
+      "y": 380,
+      "color": [
+        "#2EF2FF",
+        "#5B8CFF"
+      ]
+    },
+    {
+      "start": 2.914,
+      "text": "hold on to my hand,",
+      "color": [
+        "#2EE6FF",
+        "#6E74FF"
+      ]
+    },
+    {
+      "start": 5.22,
+      "text": "before your voice fades,",
+      "color": [
+        "#2ADAFF",
+        "#7D66FF"
+      ]
+    },
+    {
+      "start": 7.314,
+      "text": "I was sinking in the sand.",
+      "color": [
+        "#36CCFF",
+        "#8C58FF"
+      ]
+    },
+    {
+      "start": 9.578,
+      "text": "In the dead of the night,",
+      "animation_in": "blur_in",
+      "color": [
+        "#44BCFF",
+        "#9C4CFF"
+      ]
+    },
+    {
+      "start": 11.714,
+      "text": "you're a trace in the dark,",
+      "color": [
+        "#55AAFF",
+        "#B040F5"
+      ]
+    },
+    {
+      "start": 13.967,
+      "text": "UNFORGETTABLE,",
+      "emphasis": true,
+      "shake": 3,
+      "animation_in": "tracking_in",
+      "entry_duration": 0.4,
+      "punch": 0.05,
+      "letter_spacing": 4,
+      "color_to": [
+        "#D61EFF",
+        "#33E9FF"
+      ],
+      "words": [
+        {
+          "start": 13.96,
+          "end": 14.78
+        }
+      ]
+    },
+    {
+      "start": 16.173,
+      "text": "IRREPLACEABLE SPARK.",
+      "emphasis": true,
+      "shake": 4,
+      "animation_in": "tracking_in",
+      "entry_duration": 0.4,
+      "punch": 0.05,
+      "letter_spacing": 3,
+      "color_to": [
+        "#D61EFF",
+        "#33E9FF"
+      ],
+      "animation_out": "blur_out",
+      "exit_duration": 0.5,
+      "words": [
+        {
+          "start": 16.2,
+          "end": 17.3
+        },
+        {
+          "start": 17.3,
+          "end": 17.9
+        }
+      ]
+    },
+    {
+      "start": 18.367,
+      "text": " "
+    }
+  ]
+}

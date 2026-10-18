@@ -1,0 +1,17 @@
+{
+  "_about": "Look preset: white editorial type, Anton hooks, no glow, soft blur-in and fade. Stack it on a layout preset.",
+  "style": "minimal",
+  "font_normal": "montserrat",
+  "font_emphasis": "anton",
+  "text_normal": "#E8E8E8",
+  "text_emphasis": "#FFFFFF",
+  "glow_strength": 0.0,
+  "backdrop_opacity": 0.35,
+  "animation_in": "blur_in",
+  "entry_duration": 0.5,
+  "blur_amount": 12,
+  "animation_out": "fade",
+  "exit_duration": 0.4,
+  "breathe": false,
+  "shake_intensity": 5
+}
