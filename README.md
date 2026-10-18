@@ -25,18 +25,24 @@ The script steps below are optional, for people who want the render automated.
 
 ## Quick start (automated render)
 
-Requirements: Python 3.9+, ffmpeg, and a bold TrueType font (Liberation Sans Bold is used by default).
+Requirements: Python 3.9+, ffmpeg, and a bold TrueType font (Liberation Sans Bold is used by default). librosa is only needed for beat detection; the renderer runs on Pillow and NumPy alone. Install help: [`docs/INSTALL.md`](docs/INSTALL.md).
 
 ```bash
 git clone https://github.com/sertaiofficial-ops/lyric-video-engine.git
 cd lyric-video-engine
 pip install -r requirements.txt
 # Debian/Ubuntu: sudo apt-get install ffmpeg fonts-liberation
+# macOS: brew install ffmpeg   ·   Windows: winget install --id Gyan.FFmpeg -e
+# librosa trouble? The renderer only needs: pip install pillow numpy (see docs/INSTALL.md)
 
 # 1. Read the song's tempo, beats and onsets
 python3 scripts/detect_beats.py song.mp3 beats.json
 
 # 2. Write lyrics.json (see references/lyrics_format.md)
+#    or import an .srt/.lrc you already have, with a format preset:
+python3 scripts/import_subtitles.py song.srt lyrics.json --style dark --preset presets/vertical_9x16.json
+#    optional: tighten line starts to real hits (moves lines only within 0.12 s)
+python3 scripts/snap_to_beats.py lyrics.json beats.json
 
 # 3. Render
 python3 scripts/render_lyric_video.py background.mp4 song.mp3 lyrics.json output.mp4
@@ -62,6 +68,16 @@ python3 scripts/render_lyric_video.py background.mp4 song.mp3 lyrics.json output
 | `minimal` | Clean, editorial | No glow, 30% band, clean type |
 
 Every parameter (resolution, fps, font sizes, band position, punch length, shake strength, fade point, font) is listed in [`references/lyrics_format.md`](references/lyrics_format.md).
+
+### Formats
+
+| Preset | Size | For |
+|--------|------|-----|
+| [`vertical_9x16.json`](presets/vertical_9x16.json) | 1080×1920 | Reels, Shorts, TikTok, Stories (text clear of platform UI) |
+| [`square_1x1.json`](presets/square_1x1.json) | 1080×1080 | Feed posts |
+| [`landscape_16x9.json`](presets/landscape_16x9.json) | 1920×1080 | YouTube |
+
+Details and vertical tips: [`presets/README.md`](presets/README.md).
 
 ## Example: dark sample
 
@@ -90,7 +106,12 @@ lyric-video-engine/
 │   └── lyrics_format.md         # Full lyrics.json parameter reference
 ├── scripts/
 │   ├── detect_beats.py          # Tempo, beat and onset detection
+│   ├── import_subtitles.py      # SRT/LRC to lyrics.json with auto hook marking
+│   ├── snap_to_beats.py         # Tighten line starts to nearby beats/onsets
 │   └── render_lyric_video.py    # Kinetic typography renderer
+├── presets/                     # 9:16, 1:1 and 16:9 layouts
+├── docs/
+│   └── INSTALL.md               # ffmpeg per OS, librosa pitfalls
 ├── examples/
 │   └── dark-sample/             # Trial render: inputs, lyrics.json, MP4, GIF
 ├── requirements.txt

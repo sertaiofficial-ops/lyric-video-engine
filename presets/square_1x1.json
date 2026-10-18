@@ -1,0 +1,6 @@
+{
+  "width": 1080, "height": 1080, "fps": 30,
+  "font_size_emphasis": 88, "font_size_normal": 60,
+  "text_y": 600, "band_top": 570, "band_height": 240,
+  "punch_duration": 0.35, "shake_intensity": 9, "fade_start": 0.85
+}

@@ -47,6 +47,27 @@ Needs Python 3, ffmpeg, and `pip install -r requirements.txt`.
 2. Write `lyrics.json`
 3. Render: `python3 scripts/render_lyric_video.py background.mp4 song.mp3 lyrics.json output.mp4`
 
+## Hook punch rules
+
+- The first time the hook appears: `emphasis: true`, `shake: 3`. Repeats: `shake: 4`. The final chorus: `shake: 5`.
+- Never put two `shake: 5` lines back to back; the second one loses impact. Separate them with a calm line.
+- Land the hook on the downbeat or the first strong onset of the bar, even if the vocal starts a hair earlier.
+- Write hook lines in CAPS and verse lines in lowercase; the contrast alone signals the hook.
+- Short lines hit harder: split any hook longer than about 5 words into two cues.
+- Clear the screen (`" "`) for instrumental breaks longer than about 2 seconds.
+
+## Already have timed lyrics?
+
+If you have an `.srt` or `.lrc` file (from a subtitle editor, a lyrics site or your distributor), convert it instead of timing from scratch:
+
+`python3 scripts/import_subtitles.py song.lrc lyrics.json --style dark --preset presets/vertical_9x16.json`
+
+Then tighten timings to real hits: `python3 scripts/snap_to_beats.py lyrics.json beats.json`
+
+## Formats
+
+Use `presets/vertical_9x16.json` for Reels/Shorts/TikTok, `square_1x1.json` for feed posts, `landscape_16x9.json` for YouTube.
+
 ## Notes
 
 - Auto-captioning tools often fail on rap, slow tempos and non-English lyrics. Time the lines by ear.
